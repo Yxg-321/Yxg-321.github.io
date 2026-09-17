@@ -10,7 +10,14 @@ const SITE = {
   slogan: "把学到的东西写下来，才算真的学会。",
   avatar: "assets/images/avatar.jpg",       // 头像：换成你的图片路径即可
   bg: "assets/images/bg.jpg",               // 背景图
-  music: "",                                // 全局音乐按钮播放的音频地址（mp3 等，留空则按钮点击后提示无音源）
+  /* 音乐播放列表（文件名需放在 assets/music/ 目录） */
+  music: [
+    { name: "No photo of you left to survey (氛围版)", src: "assets/music/No+photo+of+you+left+to+survey(氛围版)-FFEE22.mp3" },
+    { name: "气球", src: "assets/music/气球-邓紫棋.mp3" },
+    { name: "秋风别为我难过", src: "assets/music/秋风别为我难过(青岛演唱会现场版)-温夏.mp3" },
+    { name: "再见", src: "assets/music/再见-邓紫棋.mp3" },
+    { name: "句号", src: "assets/music/张新航&邓紫棋+-+句号.mp3" },
+  ],
 
   /* ---- 留言（Giscus 评论，基于 GitHub Discussions）----
    * 填入后留言板即可用，参数获取方式见 giscus.app

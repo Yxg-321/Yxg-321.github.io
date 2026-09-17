@@ -139,47 +139,118 @@
     }
   }
 
-  /* ---------- 全局音乐按钮（音符，右下角） ---------- */
+  /* ---------- 全局音乐按钮（音符，右下角）+ 播放列表面板 ---------- */
   function initMusic() {
     const btn = document.getElementById("musicBtn");
     if (!btn) return;
+    const list = Array.isArray(SITE.music) ? SITE.music : [];
+    if (list.length === 0) return;
+
     let audio = null;
     let playing = false;
-    const SRC = SITE.music;
-    function ensureAudio() {
-      if (!audio) {
-        audio = new Audio(SRC);
-        audio.loop = true;
-        audio.volume = 0.6;
-        audio.addEventListener("ended", function () { setPlaying(false); });
-      }
-      return audio;
+    let idx = 0; // 当前播放索引
+
+    /* 内置转义（避免依赖 BlogMD，确保所有页面可用） */
+    function esc(s) {
+      return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
     }
+
+    /* 构建音乐面板 */
+    function buildPanel() {
+      let panel = document.getElementById("musicPanel");
+      if (panel) return panel;
+      panel = document.createElement("div");
+      panel.className = "music-panel";
+      panel.id = "musicPanel";
+      panel.innerHTML =
+        '<div class="music-panel-head">' +
+          '<span class="music-panel-title">音乐</span>' +
+          '<button class="music-close" id="musicClose" aria-label="关闭">×</button>' +
+        '</div>' +
+        '<ul class="music-list">' +
+          list.map(function (m, i) {
+            return '<li class="music-item" data-i="' + i + '">' +
+              '<span class="music-item-name">' + esc(m.name) + '</span>' +
+            '</li>';
+          }).join("") +
+        '</ul>' +
+        '<div class="music-ctrl">' +
+          '<button id="musicPrev" class="music-btn" aria-label="上一首">⏮</button>' +
+          '<button id="musicToggle" class="music-btn music-toggle" aria-label="播放/暂停">▶</button>' +
+          '<button id="musicNext" class="music-btn" aria-label="下一首">⏭</button>' +
+        '</div>';
+      document.body.appendChild(panel);
+      return panel;
+    }
+
+    function current() { return list[idx]; }
+
+    function loadAndPlay() {
+      const m = current();
+      if (!m) return;
+      if (audio) { audio.pause(); }
+      audio = new Audio(m.src);
+      audio.volume = 0.6;
+      audio.addEventListener("ended", function () { next(); });
+      audio.play().then(function () {
+        setPlaying(true);
+        highlight();
+      }).catch(function () { setPlaying(false); });
+    }
+
     function setPlaying(on) {
       playing = on;
       btn.classList.toggle("fab-playing", on);
       btn.title = on ? "暂停音乐" : "播放音乐";
-      btn.setAttribute("aria-label", btn.title);
+      const tg = document.getElementById("musicToggle");
+      if (tg) tg.textContent = on ? "⏸" : "▶";
     }
+
+    function highlight() {
+      document.querySelectorAll(".music-item").forEach(function (li) {
+        li.classList.toggle("active", Number(li.getAttribute("data-i")) === idx);
+      });
+    }
+
+    function next() {
+      idx = (idx + 1) % list.length;
+      loadAndPlay();
+    }
+    function prev() {
+      idx = (idx - 1 + list.length) % list.length;
+      loadAndPlay();
+    }
+
+    /* 音符按钮：展开/收起面板 */
     btn.addEventListener("click", function () {
-      if (!SRC) {
-        setPlaying(false);
-        // 无音源时给一个短暂提示（按钮标题变提示）
-        btn.title = "未配置音乐文件（在 config.js 的 music 字段填 mp3 地址）";
-        btn.setAttribute("aria-label", btn.title);
-        setTimeout(function () { setPlaying(false); }, 2000);
-        return;
+      const panel = buildPanel();
+      const open = panel.classList.toggle("show");
+      if (open) highlight();
+    });
+
+    /* 面板内交互（事件委托） */
+    document.addEventListener("click", function (e) {
+      const panel = document.getElementById("musicPanel");
+      if (!panel) return;
+      if (e.target.id === "musicClose" || !panel.contains(e.target) && e.target.id !== "musicBtn" && panel.classList.contains("show")) {
+        // 点关闭或点击面板外部时收起（音乐按钮除外）
+        if (e.target.id === "musicClose") panel.classList.remove("show");
+        else if (!panel.contains(e.target) && e.target !== btn) panel.classList.remove("show");
       }
-      const a = ensureAudio();
-      if (playing) {
-        a.pause();
-        setPlaying(false);
-      } else {
-        a.play().then(function () { setPlaying(true); })
-          .catch(function () {
-            setPlaying(false);
-          });
+      const item = e.target.closest(".music-item");
+      if (item) {
+        idx = Number(item.getAttribute("data-i"));
+        loadAndPlay();
       }
+      if (e.target.id === "musicToggle") {
+        if (!audio) { loadAndPlay(); return; }
+        if (playing) { audio.pause(); setPlaying(false); }
+        else { audio.play().then(function () { setPlaying(true); }); }
+      }
+      if (e.target.id === "musicNext") next();
+      if (e.target.id === "musicPrev") prev();
     });
   }
 
