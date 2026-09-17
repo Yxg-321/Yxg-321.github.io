@@ -20,9 +20,7 @@
     document.querySelectorAll("[data-site-avatar]").forEach(function (el) {
       el.src = SITE.avatar;
     });
-    document.querySelectorAll("[data-site-bg]").forEach(function (el) {
-      el.style.backgroundImage = "url('" + SITE.bg + "')";
-    });
+    /* 背景图由 CSS 统一设置（body 背景），hero 不再单独设背景图，避免两张图重叠 */
     /* 页面标题：<body data-pagetitle="..."> */
     const pt = document.body.getAttribute("data-pagetitle");
     document.title = pt && pt !== SITE.title ? SITE.title + " · " + pt : SITE.title;

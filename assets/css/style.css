@@ -70,10 +70,9 @@ html[data-theme="dark"] .card {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
-html[data-theme="dark"] body::before {
-  /* 暗色模式下加一层深色叠加，压暗背景图，保证可读性 */
-  background-color: rgba(22, 26, 43, 0.6);
-  background-blend-mode: multiply;
+html[data-theme="dark"] body {
+  /* 暗色模式下压暗背景图，保证前景可读 */
+  background-image: linear-gradient(rgba(22, 26, 43, 0.72), rgba(22, 26, 43, 0.72)), url("../images/bg.jpg");
 }
 
 * { box-sizing: border-box; }
@@ -84,24 +83,14 @@ body {
   margin: 0;
   font-family: var(--sans);
   color: var(--ink);
-  background: var(--bg);
   -webkit-font-smoothing: antialiased;
   line-height: 1.7;
-}
-
-/* 全局背景图：铺满整个页面，固定不随滚动（卡片半透明后可透出） */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
+  /* 全局唯一背景图：固定铺满，滚动不重叠 */
   background-image: url("../images/bg.jpg");
   background-size: cover;
   background-position: center 18%;
   background-attachment: fixed;
-  /* 淡色遮罩，让前景文字始终可读 */
   background-color: var(--bg);
-  background-blend-mode: normal;
 }
 
 ::selection { background: #f5d9bd; color: var(--brand-deep); }
