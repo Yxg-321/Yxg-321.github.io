@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/images/avatar.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-pagetitle="留言板">
+
+  <header class="site-nav" id="siteNav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-avatar" src="assets/images/avatar.jpg" alt="">
+        <span data-site="title"></span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" data-ico="home">首页</a>
+        <a href="archive.html" data-ico="archive">归档</a>
+        <a href="guestbook.html" data-ico="guestbook">留言</a>
+        <a href="about.html" data-ico="about">关于</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero hero-page" data-site-bg>
+    <div class="hero-mask"></div>
+    <div class="hero-inner">
+      <h1>留 言 板</h1>
+      <p class="hero-subtitle">来都来了，说点什么吧</p>
+    </div>
+  </section>
+
+  <main class="gb-shell">
+    <section class="card gb-card glass reveal">
+      <h2>写下留言</h2>
+      <p class="gb-hint">留言需要登录 GitHub 账号，这是免费的评论系统，无需注册本站。</p>
+      <div id="giscus-container"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span data-site="since"></span> - <span data-site="year"></span> <span data-site="owner"></span> · <span data-site="title"></span></p>
+    <p class="footer-sub"><span data-site="footerNote"></span> · <a href="admin.html">写文章</a></p>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/giscus.js"></script>
+</body>
+</html>

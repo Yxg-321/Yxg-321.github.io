@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/images/avatar.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-pagetitle="归档">
+
+  <header class="site-nav" id="siteNav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-avatar" src="assets/images/avatar.jpg" alt="">
+        <span data-site="title"></span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" data-ico="home">首页</a>
+        <a href="archive.html" data-ico="archive">归档</a>
+        <a href="guestbook.html" data-ico="guestbook">留言</a>
+        <a href="about.html" data-ico="about">关于</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero hero-page" data-site-bg>
+    <div class="hero-mask"></div>
+    <div class="hero-inner">
+      <h1>归 档</h1>
+      <p class="hero-subtitle">按时间排列的每一篇记录 · 共 <span id="archCount">0</span> 篇</p>
+    </div>
+  </section>
+
+  <main class="site-shell">
+    <section class="content">
+      <div class="card" style="padding: 30px 36px;">
+        <div class="timeline" id="timeline">
+          <p class="muted">正在加载…</p>
+        </div>
+      </div>
+    </section>
+
+    <aside class="sidebar">
+      <section class="card side-block reveal">
+        <h4 class="side-title">分类</h4>
+        <ul class="side-cats" id="sideCats"></ul>
+      </section>
+      <section class="card side-block reveal">
+        <h4 class="side-title">标签</h4>
+        <div class="side-tags" id="sideTags"></div>
+      </section>
+      <section class="card side-block reveal">
+        <h4 class="side-title">最近文章</h4>
+        <ul class="side-recent" id="sideRecent"></ul>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span data-site="since"></span> - <span data-site="year"></span> <span data-site="owner"></span> · <span data-site="title"></span></p>
+    <p class="footer-sub"><span data-site="footerNote"></span> · <a href="admin.html">管理入口</a></p>
+  </footer>
+
+  <script src="assets/js/marked.min.js"></script>
+  <script src="assets/js/highlight.min.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/markdown.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/archive.js"></script>
+  <script src="assets/js/sidebar.js"></script>
+</body>
+</html>

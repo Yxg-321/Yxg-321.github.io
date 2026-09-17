@@ -1,0 +1,45 @@
+[
+  {
+    "_id": "22dda3756aaa9c6d006f1a8401d4d3d9",
+    "slug": "hello-world",
+    "title": "你好，世界：为什么我决定开始写博客",
+    "category": "随笔",
+    "tags": ["写作", "思考"],
+    "date": "2026-09-16",
+    "published": true,
+    "summary": "看视频都懂了，一讲就卡壳？把输出当作检验输入的标准，这个博客就是我的「费曼练习场」。",
+    "markdown": "这是这个博客的第一篇文章。在正式开始记录学习之前，先回答一个给自己（也给你）的问题：**为什么要写博客？**\n\n## 写下来，才算真的学会\n\n学东西的时候经常有这样的感觉：看视频、读文章的时候「都懂了」，合上资料想给别人讲一遍，却磕磕绊绊。这就是著名的「费曼学习法」针对的问题——**输出是检验输入的唯一标准**。\n\n写作就是一种输出：\n\n- 表达会强迫你把模糊的直觉变成清晰的句子；\n- 卡壳的地方，就是你以为懂了、其实没懂的地方；\n- 发出去的文字，会收到反馈，反馈会纠正误解。\n\n## 这里会记录什么\n\n| 栏目 | 内容 |\n| --- | --- |\n| 学习笔记 | 计算机视觉、深度学习、爬虫等技术学习过程 |\n| 项目记录 | 做过的项目和练手工具的复盘 |\n| 随笔 | 生活中值得记下的碎片 |\n\n## 关于这个小站\n\n这个站点从零开始手写：前端是原生的 HTML / CSS / JavaScript，文章用 Markdown 书写，托管在腾讯云上。没有复杂的框架，但每一行都是自己敲的——这也是学习的一部分。\n\n> 慢慢写，慢慢学。希望几年后回头看，能看到一条清晰的成长轨迹。\n\n如果你恰好看到了这里，欢迎常来。下一篇文章见。"
+  },
+  {
+    "_id": "22dda3756aaa9c6d006f1a850a770d40",
+    "slug": "yolo-notes-1",
+    "title": "YOLO 学习笔记（一）：目标检测到底在「检」什么",
+    "category": "学习笔记",
+    "tags": ["YOLO", "计算机视觉", "深度学习"],
+    "date": "2026-09-12",
+    "published": true,
+    "summary": "分类回答「是什么」，检测还要回答「在哪里」。置信度、IoU、NMS——用三个概念读懂目标检测。",
+    "markdown": "最近在系统学习目标检测，从 YOLO 入手。这是系列笔记的第一篇，先把最基础的概念用自己的话讲清楚。\n\n## 分类 vs 检测\n\n图像分类回答的是「这张图里是什么」，而目标检测要回答两个问题：\n\n1. **是什么**（类别）\n2. **在哪里**（位置）\n\n位置用一个矩形框（bounding box）表示，通常记作 `(x, y, w, h)`：中心点坐标加上宽高。\n\n## 用三个概念读懂检测模型\n\n### 1. 置信度（Confidence）\n\n模型对「这个框里确实有个目标」的把握程度，0 到 1 之间。低于阈值（比如 0.25）的框会被直接丢弃。\n\n### 2. IoU（交并比）\n\n两个框的重叠程度 = 交集面积 ÷ 并集面积。它有两个用途：\n\n- 判断检测结果和人工标注的「标准答案」框得准不准（评估指标 mAP 就建立在 IoU 上）；\n- 去掉同一个目标上的重复框（NMS 非极大值抑制）。\n\n### 3. NMS（非极大值抑制）\n\n模型常常对同一个目标输出一堆重叠的框，NMS 的思路很简单：**留分数最高的，删掉和它重叠太大的其余框**，一遍遍重复直到没有多余的。\n\n## 跑通第一个 demo\n\n用 ultralytics 的 YOLOv8，几行代码就能体验：\n\n```python\nfrom ultralytics import YOLO\n\n# 载入官方预训练模型（第一次运行会自动下载）\nmodel = YOLO(\"yolov8n.pt\")\n\n# 对一张图片做检测\nresults = model(\"street.jpg\")\n\n# 可视化并保存\nresults[0].save(\"street_result.jpg\")\n```\n\n`yolov8n` 里的 **n** 表示 nano，是系列里最小的模型，速度快、精度低一些，很适合入门和练部署。\n\n## 下一步计划\n\n- [ ] 系统过一遍 YOLOv8 的网络结构\n- [ ] 用 Labelme 标注一个小数据集\n- [ ] 训练自己的数据集并导出 ONNX 部署\n\n> 笔记原则：不抄文档，只写「我理解之后的东西」。有讲错的地方，欢迎指出。"
+  },
+  {
+    "_id": "22dda3756aaa9c6d006f1a86457b3e4d",
+    "slug": "first-crawler",
+    "title": "我的第一个爬虫：从一次 HTTP 请求开始",
+    "category": "学习笔记",
+    "tags": ["Python", "爬虫", "requests"],
+    "date": "2026-09-08",
+    "published": true,
+    "summary": "浏览器打开网页的背后是一次 HTTP 请求。用 requests 发出第一次握手，把第一个爬虫跑起来。",
+    "markdown": "作为一个刚接触爬虫的新手，把第一个能跑的小爬虫记录下来，也把过程中想通的几个概念讲清楚。\n\n## 爬虫到底是什么\n\n浏览器打开一个网页，背后其实是：**你的电脑向服务器发了一个请求，服务器返回了一段 HTML，浏览器把它渲染成页面**。\n\n爬虫做的事一模一样，只是把「浏览器渲染」换成了「程序解析」：\n\n1. 发请求（requests）\n2. 拿到 HTML\n3. 解析出想要的数据（BeautifulSoup）\n4. 存下来（文件 / 数据库）\n\n## 第一次握手：requests\n\n```python\nimport requests\n\nurl = \"https://example.com\"\nheaders = {\n    # 不加 User-Agent，有些服务器会拒绝纯脚本访问\n    \"User-Agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64)\"\n}\n\nresp = requests.get(url, headers=headers, timeout=10)\nprint(resp.status_code)   # 200 表示成功\nprint(resp.encoding)      # 看看它猜的编码对不对\nprint(resp.text[:300])    # 先看前 300 个字符\n```\n\n几个一开始让我困惑、后来想明白的点：\n\n- **`status_code` 是服务器的回执**：200 成功，404 没这个页面，403 拒绝你访问；\n- **编码问题**：中文乱码多半是 `resp.encoding` 猜错了，手动改成 `resp.apparent_encoding` 试试；\n- **`timeout` 一定要加**：不加的话，服务器不响应时程序会永远等下去。\n\n## 解析 HTML：找对「地址」\n\nHTML 是一层层嵌套的标签，解析库 BeautifulSoup 提供了按标签、属性、类名查找的能力：\n\n```python\nfrom bs4 import BeautifulSoup\n\nsoup = BeautifulSoup(resp.text, \"html.parser\")\nfor h in soup.find_all(\"h2\"):\n    print(h.get_text(strip=True))\n```\n\n定位元素的技巧：在浏览器里按 F12，用「检查元素」看目标内容在哪个标签里，再用对应的选择器去取。\n\n## 爬虫的礼仪（和红线）\n\n- 先看 `robots.txt`（比如 `https://example.com/robots.txt`），那是网站对爬虫的「访问须知」；\n- 控制频率，加 `time.sleep()`，别把人家服务器打挂；\n- 不爬、不存涉及个人隐私的数据；商用接口看清楚服务条款。\n\n> 技术是中性的，用得好是效率工具，用得不好就是麻烦制造机。共勉。\n\n## 下一步\n\n学会翻页、处理 ajax 接口、把结果存进 SQLite——下篇笔记见。"
+  },
+  {
+    "_id": "8b221eee6aaab2fe004dd1b148dd0295",
+    "title": "测试",
+    "category": "随笔",
+    "tags": ["测试"],
+    "date": "2026-09-16",
+    "published": true,
+    "summary": "这是一个测试",
+    "markdown": "## 测试\n### 是否发布成功"
+  }
+]

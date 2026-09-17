@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/images/avatar.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-pagetitle="关于">
+
+  <header class="site-nav" id="siteNav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-avatar" src="assets/images/avatar.jpg" alt="">
+        <span data-site="title"></span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" data-ico="home">首页</a>
+        <a href="archive.html" data-ico="archive">归档</a>
+        <a href="guestbook.html" data-ico="guestbook">留言</a>
+        <a href="about.html" data-ico="about">关于</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero hero-page" data-site-bg>
+    <div class="hero-mask"></div>
+    <div class="hero-inner">
+      <h1>关 于</h1>
+      <p class="hero-subtitle">关于我，以及这个小站</p>
+    </div>
+  </section>
+
+  <main class="site-shell" style="grid-template-columns: 1fr;">
+    <section class="card article-card" style="padding: 38px 44px;">
+      <div class="prose">
+        <h2>你好，我是 <span data-site="owner"></span></h2>
+        <p>这里是我的个人博客，一名人工智能专业的学生，正在学习计算机视觉与深度学习，网络爬虫技术。这个博客是我给自己的<strong>思考整理器</strong>——把学到的东西写清楚，才算真的学会。</p>
+        <blockquote>
+          <p>「教是最好的学。」——把每一次踩坑和每一次想通都记下来。</p>
+        </blockquote>
+        <h2>这里会写什么</h2>
+        <ul>
+          <li><strong>学习笔记</strong>：计算机视觉、深度学习、爬虫、工程部署的学习过程与踩坑记录；</li>
+          <li><strong>项目记录</strong>：做过的课程项目和练手小工具的复盘；</li>
+          <li><strong>随笔</strong>：生活里值得记下来的碎片。</li>
+        </ul>
+        <h2>这个小站是怎么搭的</h2>
+        <ul>
+          <li>前端：手写 HTML / CSS / 原生 JavaScript，Markdown 由 <code>marked.js</code> 渲染，代码高亮用 <code>highlight.js</code>；</li>
+          <li>后端：腾讯云 <strong>CloudBase</strong> 云数据库存文章，管理员在浏览器里用 Markdown 编辑并一键发布；</li>
+          <li>托管：CloudBase 静态托管，免费额度，自带二级域名，无需备案。</li>
+        </ul>
+        <h2>联系我</h2>
+        <p><a href="mailto:3152450383@qq.com">3152450383@qq.com</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span data-site="since"></span> - <span data-site="year"></span> <span data-site="owner"></span> · <span data-site="title"></span></p>
+    <p class="footer-sub"><span data-site="footerNote"></span> · <a href="admin.html">管理入口</a></p>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/images/avatar.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-pagetitle="文章">
+
+  <header class="site-nav" id="siteNav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-avatar" src="assets/images/avatar.jpg" alt="">
+        <span data-site="title"></span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" data-ico="home">首页</a>
+        <a href="archive.html" data-ico="archive">归档</a>
+        <a href="guestbook.html" data-ico="guestbook">留言</a>
+        <a href="about.html" data-ico="about">关于</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero hero-page" data-site-bg>
+    <div class="hero-mask"></div>
+    <div class="hero-inner">
+      <h1 id="postTitle">加载中…</h1>
+      <div class="hero-meta" id="postMeta"></div>
+      <div class="hero-tags" id="postTags"></div>
+    </div>
+  </section>
+
+  <main class="shell-article">
+    <article class="card article-card">
+      <div id="article" class="prose"><p class="muted">正在加载文章…</p></div>
+      <nav class="post-nav" id="postNav" hidden>
+        <a class="prev" id="navPrev" href="javascript:void(0)"><span class="dir">← 上一篇</span><span class="t"></span></a>
+        <a class="next" id="navNext" href="javascript:void(0)"><span class="dir">下一篇 →</span><span class="t"></span></a>
+      </nav>
+    </article>
+
+    <aside class="toc-sidebar">
+      <nav class="card toc" id="tocBox">
+        <h5 class="toc-title">目 录</h5>
+        <div id="tocList"></div>
+      </nav>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span data-site="since"></span> - <span data-site="year"></span> <span data-site="owner"></span> · <span data-site="title"></span></p>
+    <p class="footer-sub"><span data-site="footerNote"></span> · <a href="admin.html">管理入口</a></p>
+  </footer>
+
+  <script src="assets/js/marked.min.js"></script>
+  <script src="assets/js/highlight.min.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/markdown.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/post.js"></script>
+</body>
+</html>
