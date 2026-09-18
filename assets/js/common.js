@@ -149,6 +149,22 @@
     let audio = null;
     let playing = false;
     let idx = 0; // 当前播放索引
+    /* 音频对象缓存：每首歌预创建并 preload，切歌时直接复用，避免重新下载导致的延迟 */
+    const cache = {};
+
+    function getAudio(i) {
+      const m = list[i];
+      if (!m) return null;
+      if (!cache[i]) {
+        const a = new Audio();
+        a.preload = "auto"; // 预加载，首次播放后整首已缓存
+        a.src = m.src;
+        a.volume = 0.6;
+        a.addEventListener("ended", function () { next(); });
+        cache[i] = a;
+      }
+      return cache[i];
+    }
 
     /* 内置转义（避免依赖 BlogMD，确保所有页面可用） */
     function esc(s) {
@@ -188,15 +204,16 @@
     function current() { return list[idx]; }
 
     function loadAndPlay() {
-      const m = current();
-      if (!m) return;
-      if (audio) { audio.pause(); }
-      audio = new Audio(m.src);
-      audio.volume = 0.6;
-      audio.addEventListener("ended", function () { next(); });
+      if (!current()) return;
+      /* 停掉正在播的 */
+      if (audio) { audio.pause(); audio.currentTime = 0; }
+      audio = getAudio(idx);
+      if (!audio) return;
       audio.play().then(function () {
         setPlaying(true);
         highlight();
+        /* 后台预加载下一首，加速切换 */
+        getAudio((idx + 1) % list.length);
       }).catch(function () { setPlaying(false); });
     }
 

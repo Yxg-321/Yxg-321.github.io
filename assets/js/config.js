@@ -14,9 +14,7 @@ const SITE = {
   music: [
     { name: "No photo of you left to survey (氛围版)", src: "assets/music/No+photo+of+you+left+to+survey(氛围版)-FFEE22.mp3" },
     { name: "气球", src: "assets/music/气球-邓紫棋.mp3" },
-    { name: "秋风别为我难过", src: "assets/music/秋风别为我难过(青岛演唱会现场版)-温夏.mp3" },
     { name: "再见", src: "assets/music/再见-邓紫棋.mp3" },
-    { name: "句号", src: "assets/music/张新航&邓紫棋+-+句号.mp3" },
   ],
 
   /* ---- 留言（Giscus 评论，基于 GitHub Discussions）----
