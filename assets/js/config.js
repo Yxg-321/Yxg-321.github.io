@@ -26,10 +26,10 @@ const SITE = {
    * categoryId: "DIC_kwDOxxxxxx",
    */
   giscus: {
-    repo: "",
-    repoId: "",
-    category: "",
-    categoryId: "",
+    repo: "Yxg-321/Yxg-321.github.io",
+    repoId: "R_kgDOUewEaA",
+    category: "General",
+    categoryId: "DIC_kwDOUewEaM4DF8sj",
     mapping: "pathname",
     theme: "preferred_color_scheme",
     lang: "zh-CN",
